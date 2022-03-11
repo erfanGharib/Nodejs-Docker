@@ -1,0 +1,117 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: calibri, arial;
+    text-decoration: none;
+    color: #222;
+}
+.jcb {
+    justify-content: space-between;
+}
+.jcc {
+    justify-content: center;
+}
+.jce {
+    justify-content: space-evenly;
+}
+.ic {
+    align-items: center;
+}
+.flex {
+    display: flex;
+}
+.w-full {
+    width: 100%;
+}
+.h-full {
+    height: 100%;
+}
+
+body {
+    height: 100vh;
+    flex-direction: column;
+}
+main {
+    width: 50%;
+    height: 40%;
+}
+nav {
+    height: 50px;
+    background: #222;
+}
+.nav-links {
+    margin: 0 15px;
+    color: #ffffff9d;
+    transition: .2s;
+    transform: scale(1);
+}
+.nav-links:hover {
+    color: #fffffff1;
+    transform: scale(1.2);
+}
+footer {
+    height: 40px;
+    width: 100%;
+    border-top: 1px solid #d6d6d6;
+    color: #2222229f;
+    padding: 5px 0;
+    font-size: small;
+}
+span, p, a {
+    color: inherit;
+}
+h1 {
+    margin-bottom: 5px;
+}
+p {
+    opacity: .5;
+}
+#form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 300px;
+}
+#email, #pass, #submit-btn {
+    margin-top: 7px;
+    padding: 7px;
+    min-height: 20px;
+    border: 1px solid #e2e2e2;
+}
+#submit-btn {
+    margin-top: 14px;
+}
+#submit-btn:hover {
+    background: #e2e2e2;
+}
+#submit-btn:active {
+    background: #cccccc;
+    border-color: #cccccc;
+}
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+.err {
+    color: red;
+    margin-top: 4px;
+    font-size: small;
+}
+#show-pass {
+    color: dodgerblue;
+    font-size: small;
+    margin-top: 7px;
+    position: absolute;
+    right: 7px;
+    cursor: pointer;
+}
+label {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#show-pass:hover {
+    text-decoration: underline;
+}
