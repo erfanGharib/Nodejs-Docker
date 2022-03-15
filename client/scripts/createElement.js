@@ -50,4 +50,10 @@ const createElement = ({
         element.addEventListener(eventName, eventFunc, {once: exeOnce});
 }
 
+const get = (tagName = 'body', selectMultiple = false) => {
+    if(selectMultiple) return document.querySelectorAll(tagName);
+    return document.querySelector(tagName);
+}
+
 export default createElement;
+export { get }

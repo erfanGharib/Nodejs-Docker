@@ -11,14 +11,29 @@ import createElement from 'http://localhost:8080/source/create-element';
 
 const pages_$html = [
     { url: '/', pageContent: homePage_$html, },
-    { url: '/contact-us', pageContent: contactUsPage_$html, },
+    { url: '/contact-us',pageContent: contactUsPage_$html, },
     { url: '/about-us', pageContent: aboutUsPage_$html, },
     { url: '/sign-up', pageContent: signUp_$html, },
     { url: '/log-in', pageContent: logIn_$html, }
 ];
+// get user id from cookies
+const cookie = document.cookie;
+const userId = cookie.slice(cookie.indexOf('=')+1, cookie.length);
+export { userId };
 
 (async () => {
-    await navbar_$func(false);
+    let userExist = false;
+
+    if(cookie !== '') {
+        console.log(cookie);
+        await fetch(`${baseUrl}/api/users/${userId}`)
+        .then(res => {
+            if (res.status === 200) return userExist = true;
+            else return userExist = false;
+        });
+    }
+    
+    await navbar_$func(userExist);
 
     await pages_$html.forEach(value => {
         if (`${baseUrl}${value.url}` === window.location.href) {
@@ -29,28 +44,38 @@ const pages_$html = [
         }
     });
 
-    const submitBtn_$dom = document.querySelector('button');
+    await createElement({
+        tagName: 'footer',
+        cls: ['jce', 'flex', 'ic'],
+        inner: (`
+            <span>Designed and Developed by <i>Erfan Gharib</i></span>
+            <span>All Rights Reserved 2022-2021©</span>
+        `)
+    });
+
+    const submitBtn_$dom = document.querySelector('#submit-btn');
     let showPassInner = 'show';
 
     if (submitBtn_$dom !== null) {
-        await document.querySelector('#show-pass').addEventListener('click', (e)=>{
-            const {target: elem} = e;
+        await document.querySelector('#show-pass').addEventListener('click', (e) => {
+            const { target: elem } = e;
             const passInp_$dom = document.querySelector('#pass');
 
-            if(elem.innerText==='show') {
-                showPassInner='hide';
-                passInp_$dom.type='text';
+            if (elem.innerText === 'show') {
+                showPassInner = 'hide';
+                passInp_$dom.type = 'text';
             }
-            else if(elem.innerText==='hide') {
-                showPassInner='show';
-                passInp_$dom.type='password';
+            else if (elem.innerText === 'hide') {
+                showPassInner = 'show';
+                passInp_$dom.type = 'password';
             }
 
             elem.removeChild(elem.firstChild);
             elem.append(showPassInner);
         });
-        
+
         await submitBtn_$dom.addEventListener('click', () => {
+            console.log('called');
             const input_$dom = document.querySelectorAll('input');
             const err_$dom = document.querySelectorAll('.err');
 
@@ -67,27 +92,26 @@ const pages_$html = [
                         password: input_$dom[1].value,
                     })
                 }
-            ).then(res=>res.json()).then(err=>{
-                const inpName = [
-                    'Email must be valid', 
-                    'Password length must be at least 5 characters long'
-                ];
-                err.forEach((value, index) => {
-                    if(value.error !== undefined)
-                        err_$dom[index].innerText = inpName[index];
-                    else 
-                        err_$dom[index].innerText = '';
-                });
+            ).then(res => res.text()).then(err_ => {
+                const err = JSON.parse(err_);
+
+                switch (err.id) {
+                    case 0:
+                        err_$dom[0].innerText = err.err;
+                        break;
+                    case 1:
+                        err_$dom[1].innerText = err.err
+                        break;
+                    case 2:
+                        err_$dom[0].innerText = err.err
+                        break;
+
+                    default:
+                        err_$dom.forEach(value => value.innerText = '');
+                        window.location = '/';
+                        break;
+                }
             });
         });
     }
-
-    await createElement({
-        tagName: 'footer',
-        cls: ['jce', 'flex', 'ic'],
-        inner: (`
-            <span>Designed and Developed by <i>Erfan Gharib</i></span>
-            <span>All Rights Reserved 2022-2021©</span>
-        `)
-    });
-})()
+})();

@@ -9,6 +9,7 @@ const files = [
     {file: 'pages/home.js', url: 'home'},
     {file: 'pages/contact-us.js', url: 'contact-us'},
     {file: 'pages/about-us.js', url: 'about-us'},
+    {file: 'components/dropdownMenu.js', url: 'dropdown-menu'},
 ];
 const filePath_$func =(app)=> {
     files.forEach(value => {
