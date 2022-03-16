@@ -7,7 +7,7 @@ import contactUsPage_$html from 'http://localhost:8080/source/contact-us';
 import aboutUsPage_$html from 'http://localhost:8080/source/about-us';
 import signUp_$html from 'http://localhost:8080/source/signup';
 import logIn_$html from 'http://localhost:8080/source/login';
-import createElement from 'http://localhost:8080/source/create-element';
+import createElement, { get } from 'http://localhost:8080/source/create-element';
 
 const pages_$html = [
     { url: '/', pageContent: homePage_$html, },
@@ -108,6 +108,7 @@ export { userId };
 
                     default:
                         err_$dom.forEach(value => value.innerText = '');
+                        get('#submit-btn').disabled = true;
                         window.location = '/';
                         break;
                 }
