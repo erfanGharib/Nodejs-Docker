@@ -14,6 +14,7 @@ const validateUser = (user) => {
     const schemaPass = Joi.string().required().min(5);
     return [schemaEmail.validate(user.email), schemaPass.validate(user.password)];
 };
+
 const createAPI = (app) => {
     app.get('/api/users/:id', (req, res) => {
         MongoClient.connect(url, (err, db) => {
@@ -33,7 +34,7 @@ const createAPI = (app) => {
                             return res.send(value.email)
                         };
                     });
-                    if(!userExist) return res.status(404).send('user with given id not found!');
+                    if(!userExist) return res.status(404).send('user with requested id, not found!');
                 });
         });
     });
@@ -79,8 +80,20 @@ const createAPI = (app) => {
     });
 
     app.delete('/api/users/:id', (req, res) => {
-        const user = users.find(u => u.id === parseInt(req.params.id));
-        if (!user) return res.status(404).send('user with requested id, not found!');
+        MongoClient.connect(url, (err, db) => {
+            if (err) throw err;
+
+            const dName = db.db(databaseName);
+            dName.collection('users').find({}).toArray((err, result)=> {
+                result.forEach(value => {
+                    if(value._id.toString() === req.params.id)
+                        dName.collection('users').deleteOne({ email: value.email }, (err,result) => {
+                            if (err) return res.status(404).send('user with requested id, not found!');
+                            return res.send('user deleted successfully');
+                        });
+                });
+            });
+        });
     });
 };
 

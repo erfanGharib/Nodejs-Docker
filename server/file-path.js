@@ -10,6 +10,7 @@ const files = [
     {file: 'pages/contact-us.js', url: 'contact-us'},
     {file: 'pages/about-us.js', url: 'about-us'},
     {file: 'components/dropdownMenu.js', url: 'dropdown-menu'},
+    {file: 'favicon.png', url: 'favicon'},
 ];
 const filePath_$func =(app)=> {
     files.forEach(value => {
