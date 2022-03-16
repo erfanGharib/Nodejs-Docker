@@ -48,17 +48,10 @@ main {
 }
 nav {
     height: 50px;
-    background: #222;
+    background: rgb(2, 40, 83);
 }
 .nav-links {
     margin: 0 15px;
-    color: #ffffff9d;
-    transition: .2s;
-    transform: scale(1);
-    position: relative;
-}
-.nav-links:hover {
-    color: #fffffff1;
 }
 footer {
     height: 40px;
@@ -68,7 +61,7 @@ footer {
     padding: 5px 0;
     font-size: small;
 }
-span, p, a {
+span, p {
     color: inherit;
 }
 h1 {
@@ -108,8 +101,13 @@ input::-ms-clear {
     margin-top: 4px;
     font-size: small;
 }
+a {
+    color: #4aa5ff;
+}
+a:hover {
+    text-decoration: underline;
+}
 #show-pass {
-    color: dodgerblue;
     font-size: small;
     margin-top: 7px;
     position: absolute;
@@ -123,16 +121,13 @@ label {
     justify-content: space-between;
     align-items: center;
 }
-#show-pass:hover {
-    text-decoration: underline;
-}
 #navbar-dropdown {
     cursor: default;
     position: absolute;
-    top: 25px;
+    top: 30px;
     background: #fff;
     border-radius: 5px;
-    border: 1px solid #9e9e9e;
+    border: 1px solid #b4b4b4;
     box-shadow: 0 2px 5px #3a3a3a55;
     padding: 5px;
     width: 118px;

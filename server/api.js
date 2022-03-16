@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const { url, databaseName } = require('../main');
+const { url, databaseName, directories } = require('../main');
 const Joi = require('joi');
 
 const errorMessages = [
@@ -16,14 +16,18 @@ const validateUser = (user) => {
 };
 
 const createAPI = (app) => {
+    app.get('/403', (req, res) => {
+        res.status(403)
+        .sendFile(`${directories}/client/pages/403-page.html`);
+    });
+
     app.get('/api/users/:id', (req, res) => {
         MongoClient.connect(url, (err, db) => {
             if (err) throw err;
-            
+
             db.db(databaseName).collection('users')
                 .find({}).toArray((err, result) => {
                     if (err) throw err;
-                    console.log(1);
 
                     let userExist=false;
 
@@ -70,7 +74,8 @@ const createAPI = (app) => {
                         res.cookie(
                             'userId', 
                             result_.insertedId.toHexString(),
-                            {expire : new Date()}
+                            {expire: new Date() + 9999},
+                            {maxAge: 10800}
                         )
                         .send(errorMessages[3]);
                     });

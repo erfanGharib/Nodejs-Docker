@@ -35,8 +35,20 @@ export { userId };
     
     await navbar_$func(userExist);
 
+    let runOnce = false;
     await pages_$html.forEach(value => {
-        if (`${baseUrl}${value.url}` === window.location.href) {
+        if (
+            (
+                location.href === `${baseUrl}/sign-up` || 
+                location.href === `${baseUrl}/log-in`
+            ) &&
+            runOnce !== true &&
+            userExist !== false
+        ) {
+            runOnce = true;
+            location.href = '/403'
+        }
+        else if (`${baseUrl}${value.url}` === window.location.href) {
             createElement({
                 tagName: 'main',
                 inner: value.pageContent
