@@ -8,6 +8,8 @@ import aboutUsPage_$html from 'http://localhost:8080/source/about-us';
 import signUp_$html from 'http://localhost:8080/source/signup';
 import logIn_$html from 'http://localhost:8080/source/login';
 import createElement, { get } from 'http://localhost:8080/source/create-element';
+import showPass from 'http://localhost:8080/source/show-pass';
+import submitBtn from 'http://localhost:8080/source/submit-btn';
 
 const pages_$html = [
     { url: '/', pageContent: homePage_$html, },
@@ -19,11 +21,11 @@ const pages_$html = [
 // get user id from cookies
 const cookie = document.cookie;
 const userId = cookie.slice(cookie.indexOf('=')+1, cookie.length);
+let userExist = false;
+
 export { userId };
 
 (async () => {
-    let userExist = false;
-
     if(cookie !== '') {
         console.log(cookie);
         await fetch(`${baseUrl}/api/users/${userId}`)
@@ -35,18 +37,16 @@ export { userId };
     
     await navbar_$func(userExist);
 
-    let runOnce = false;
     await pages_$html.forEach(value => {
+        console.log('foreach');
         if (
             (
                 location.href === `${baseUrl}/sign-up` || 
                 location.href === `${baseUrl}/log-in`
             ) &&
-            runOnce !== true &&
             userExist !== false
         ) {
-            runOnce = true;
-            location.href = '/403'
+            location.href = '/403';
         }
         else if (`${baseUrl}${value.url}` === window.location.href) {
             createElement({
@@ -66,65 +66,8 @@ export { userId };
     });
 
     const submitBtn_$dom = document.querySelector('#submit-btn');
-    let showPassInner = 'show';
-
     if (submitBtn_$dom !== null) {
-        await document.querySelector('#show-pass').addEventListener('click', (e) => {
-            const { target: elem } = e;
-            const passInp_$dom = document.querySelector('#pass');
-
-            if (elem.innerText === 'show') {
-                showPassInner = 'hide';
-                passInp_$dom.type = 'text';
-            }
-            else if (elem.innerText === 'hide') {
-                showPassInner = 'show';
-                passInp_$dom.type = 'password';
-            }
-
-            elem.removeChild(elem.firstChild);
-            elem.append(showPassInner);
-        });
-
-        await submitBtn_$dom.addEventListener('click', () => {
-            console.log('called');
-            const input_$dom = document.querySelectorAll('input');
-            const err_$dom = document.querySelectorAll('.err');
-
-            fetch(
-                `${baseUrl}/api/users`,
-                {
-                    method: 'post',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        email: input_$dom[0].value,
-                        password: input_$dom[1].value,
-                    })
-                }
-            ).then(res => res.text()).then(err_ => {
-                const err = JSON.parse(err_);
-
-                switch (err.id) {
-                    case 0:
-                        err_$dom[0].innerText = err.err;
-                        break;
-                    case 1:
-                        err_$dom[1].innerText = err.err
-                        break;
-                    case 2:
-                        err_$dom[0].innerText = err.err
-                        break;
-
-                    default:
-                        err_$dom.forEach(value => value.innerText = '');
-                        get('#submit-btn').disabled = true;
-                        window.location = '/';
-                        break;
-                }
-            });
-        });
+        await showPass();
+        await submitBtn(submitBtn_$dom);
     }
 })();
