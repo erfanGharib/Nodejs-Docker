@@ -27,7 +27,6 @@ export { userId };
 
 (async () => {
     if(cookie !== '') {
-        console.log(cookie);
         await fetch(`${baseUrl}/api/users/${userId}`)
         .then(res => {
             if (res.status === 200) return userExist = true;
@@ -38,7 +37,6 @@ export { userId };
     await navbar_$func(userExist);
 
     await pages_$html.forEach(value => {
-        console.log('foreach');
         if (
             (
                 location.href === `${baseUrl}/sign-up` || 
@@ -67,7 +65,8 @@ export { userId };
 
     const submitBtn_$dom = document.querySelector('#submit-btn');
     if (submitBtn_$dom !== null) {
+        let isSignupPage = location.href === `${baseUrl}/sign-up` ? 'sign-up' : 'log-in';
         await showPass();
-        await submitBtn(submitBtn_$dom);
+        await submitBtn(submitBtn_$dom, isSignupPage);
     }
 })();

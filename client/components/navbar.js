@@ -19,7 +19,6 @@ const navbtns_$arr = [
 let pages_link='';
 
 const navbar_$func = async (user_status = false) => {
-    console.log(user_status);
     let btns = [
         ...navbtns_$arr[0],
         ...navbtns_$arr[ user_status ? 2 : 1 ]
@@ -27,9 +26,9 @@ const navbar_$func = async (user_status = false) => {
     await btns.map(btn => {
         const useUrl = btn.link === '' ? '' : baseUrl + btn.link;
         pages_link += (`
-            <button class="nav-links">
+            <span class="nav-links">
                 <a href="${useUrl}">${btn.text}</a>
-            </button>
+            </span>
         `);
     });
 

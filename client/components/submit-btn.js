@@ -1,14 +1,13 @@
 import { get } from 'http://localhost:8080/source/create-element';
 import baseUrl from 'http://localhost:8080/source/indexjs';
 
-const submitBtn =(submitBtn_$dom)=> {
-    console.log('called');
+const submitBtn =(submitBtn_$dom, type)=> {
     submitBtn_$dom.addEventListener('click', () => {
         const input_$dom = document.querySelectorAll('input');
         const err_$dom = document.querySelectorAll('.err');
-    
+
         fetch(
-            `${baseUrl}/api/users`,
+            `${baseUrl}/api/users/${type}`,
             {
                 method: 'post',
                 headers: {
@@ -22,7 +21,7 @@ const submitBtn =(submitBtn_$dom)=> {
             }
         ).then(res => res.text()).then(err_ => {
             const err = JSON.parse(err_);
-    
+
             switch (err.id) {
                 case 0:
                     err_$dom[0].innerText = err.err;
@@ -44,4 +43,4 @@ const submitBtn =(submitBtn_$dom)=> {
     });
 }
     
-export default submitBtn;    
+export default submitBtn;
