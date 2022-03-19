@@ -1,4 +1,4 @@
-const { directories } = require('../main.js');
+const { directories } = require('../index.js');
 const files = [
     {file: 'components/dropdownMenu.js', url: 'dropdown-menu'},
     {file: 'components/navbar.js', url: 'navbar'},

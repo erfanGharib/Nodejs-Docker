@@ -1,6 +1,6 @@
-import baseUrl from 'http://localhost:8080/source/indexjs';
-import createElement, { get } from "http://localhost:8080/source/create-element";
-import dropdownMenu from 'http://localhost:8080/source/dropdown-menu';
+import baseUrl from 'http://localhost:5000/source/indexjs';
+import createElement, { get } from "http://localhost:5000/source/create-element";
+import dropdownMenu from 'http://localhost:5000/source/dropdown-menu';
 
 const navbtns_$arr = [
     [   // constant - links

@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const { dbUrl, databaseName, directories } = require('../main');
+const { dbUrl, databaseName, directories } = require('../index.js');
 const Joi = require('joi');
 
 const errorMessages = {
