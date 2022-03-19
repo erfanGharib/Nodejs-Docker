@@ -6,7 +6,7 @@
   "scripts": {
     "createDB": "node ./createDatabase.js",
     "start": "node ./index.js",
-    "db": "npm createDB",
+    "db": "npm run createDB",
     "web": "npm start"
   },
   "author": "erfan-gharib",
