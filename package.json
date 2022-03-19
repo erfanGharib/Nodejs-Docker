@@ -4,6 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
+    "createDB": "node ./createDatabase.js",
     "start": "node ./index.js",
     "web": "npm start"
   },
