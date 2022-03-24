@@ -37,6 +37,9 @@ const startApp = async () => {
     await require('./server/api').createAPI(app);
 
     await app
+       .get('/', (req, res) => {
+           res.sendFile(__dirname + '/client/index.html');
+       })
       .use(express.static(__dirname + '/client'))
       .use(express.json())
       .set('view engine', 'ejs')
