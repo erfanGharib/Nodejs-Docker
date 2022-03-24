@@ -1,5 +1,5 @@
-import { get } from 'http://localhost:5000/source/create-element';
-import baseUrl from 'http://localhost:5000/source/indexjs';
+import { get } from '../scripts/createElement.js';
+import baseUrl from '../scripts/index.js';
 
 const submitBtn =(submitBtn_$dom, type)=> {
     submitBtn_$dom.addEventListener('click', () => {

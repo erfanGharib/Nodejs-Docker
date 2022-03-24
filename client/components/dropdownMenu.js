@@ -1,5 +1,5 @@
-import createElement, { get } from "http://localhost:5000/source/create-element";
-import baseUrl, { userId } from 'http://localhost:5000/source/indexjs';
+import createElement, { get } from '../scripts/createElement.js';
+import baseUrl, { userId } from '../scripts/index.js';
 
 const deleteAllCookies =()=> {
     const cookies = document.cookie.split(";");

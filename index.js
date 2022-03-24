@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-// const { createRoutes } = require('./server/routes');
-const PORT = process.env.PORT || 8000;
-const directories = __dirname;
+const PORT = process.env.PORT || 5000;
 const databaseName = 'fullstack-practise';
 const dbUrl = 'mongodb://localhost:27017/';
 const routes_$arr = [
@@ -13,22 +11,37 @@ const routes_$arr = [
     '/log-in',
 ];
 
-routes_$arr.forEach((value, index) => {
-    app.get(value, (req, res) => {
-        res.sendFile(directories + '/client/index.html');
-    });
-});
-
 module.exports = {
-    directories, routes_$arr, dbUrl, databaseName
+    routes_$arr, dbUrl, databaseName
 }
 
-require('./server/file-path').filePath_$func(app);
-require('./server/api').createAPI(app);
+const startApp = async () => {
+    await require('mongodb').MongoClient.connect(dbUrl, (err, db) => {
+        if (err) throw err;
+        console.log(`${databaseName} database created!`);
+        const dName = db.db(databaseName);
+        dName.createCollection('users', (err, res) => {
+            if (err) throw err;
+            console.log('collection created!');
+        });
+    });
+    
+    await routes_$arr.forEach((value, index) => {
+        app.get(value, (req, res) => {
+            res.sendFile(__dirname + '/client/index.html');
+        });
+    });
+    
+    await require('./server/api').createAPI(app);
 
-app.use(express.json())
-   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+    await app
+      .use(express.static(__dirname + '/client'))
+      .use(express.json())
+      .set('view engine', 'ejs')
+      .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+};
 
+startApp();
 // createRoutes(app);
 // express()
 //   .use(express.static(path.join(__dirname, 'client')))

@@ -1,15 +1,15 @@
 const baseUrl = 'http://localhost:5000';
 export default baseUrl;
 
-import navbar_$func from 'http://localhost:5000/source/navbar';
-import homePage_$html from 'http://localhost:5000/source/home';
-import contactUsPage_$html from 'http://localhost:5000/source/contact-us';
-import aboutUsPage_$html from 'http://localhost:5000/source/about-us';
-import signUp_$html from 'http://localhost:5000/source/signup';
-import logIn_$html from 'http://localhost:5000/source/login';
-import createElement, { get } from 'http://localhost:5000/source/create-element';
-import showPass from 'http://localhost:5000/source/show-pass';
-import submitBtn from 'http://localhost:5000/source/submit-btn';
+import navbar_$func from '../components/navbar.js';
+import homePage_$html from '../pages/home.js';
+import contactUsPage_$html from '../pages/contact-us.js';
+import aboutUsPage_$html from '../pages/about-us.js';
+import signUp_$html from '../pages/sign-up.js';
+import logIn_$html from '../pages/log-in.js';
+import createElement, { get } from './createElement.js';
+import showPass from '../components/show-pass.js';
+import submitBtn from '../components/submit-btn.js';
 
 const pages_$html = [
     { url: '/', pageContent: homePage_$html, },
