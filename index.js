@@ -14,8 +14,10 @@ const routes_$arr = [
 module.exports = {
     routes_$arr, dbUrl, databaseName
 }
+console.log('worked 2');
 
 const startApp = async () => {
+    console.log('worked 1');
     //await require('mongodb').MongoClient.connect(dbUrl, (err, db) => {
     //    if (err) throw err;
     //    console.log(`${databaseName} database created!`);
