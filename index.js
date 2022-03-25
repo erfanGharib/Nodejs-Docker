@@ -14,10 +14,10 @@ const routes_$arr = [
 module.exports = {
     routes_$arr, dbUrl, databaseName
 }
-console.log('worked 2');
+console.log('worked 1');
 
 const startApp = async () => {
-    console.log('worked 1');
+    console.log('worked 2');
     //await require('mongodb').MongoClient.connect(dbUrl, (err, db) => {
     //    if (err) throw err;
     //    console.log(`${databaseName} database created!`);
@@ -28,31 +28,19 @@ const startApp = async () => {
     //    });
     //});
     
-    await routes_$arr.forEach((value, index) => {
-        app.get(value, (req, res) => {
-            res.sendFile(__dirname + '/client/index.html');
-        });
-    });
+    // await routes_$arr.forEach((value, index) => {
+    //     app.get(value, (req, res) => {
+    //         res.sendFile(__dirname + '/client/index.html');
+    //     });
+    // });
     
-    await require('./server/api').createAPI(app);
+    await require('./server/api').createAPI(app, __dirname);
 
     await app
-       .get('/', (req, res) => {
-           res.sendFile(__dirname + '/client/index.html');
-       })
+      .get('/', (req, res) => res.sendFile(__dirname + '/client/index.html'))
       .use(express.static(__dirname + '/client'))
       .use(express.json())
-      .set('view engine', 'ejs')
       .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 };
 
 startApp();
-// createRoutes(app);
-// express()
-//   .use(express.static(path.join(__dirname, 'client')))
-//   .use(express.json())
-//   .set('views', path.join(__dirname, 'views'))
-//   .set('view engine', 'ejs')
-//   .get('/', (req, res) => res.render('index.html'))
-//   .get('/cool', (req, res) => res.send(cool()))
-//   .listen(PORT, () => console.log(`Listening on ${ PORT }`));

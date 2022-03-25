@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const { dbUrl, databaseName, directories } = require('../index.js');
+const { dbUrl, databaseName } = require('../index.js');
 const Joi = require('joi');
 
 const errorMessages = {
@@ -21,7 +21,7 @@ const validateUser = (user) => {
     return [schemaEmail.validate(user.email), schemaPass.validate(user.password)];
 };
 
-const createAPI = (app) => {
+const createAPI = (app, directories) => {
     app.get('/403', (req, res) => {
         res.status(403)
         .sendFile(`${directories}/client/pages/403-page.html`);
