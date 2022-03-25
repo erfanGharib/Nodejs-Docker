@@ -1,4 +1,6 @@
-const baseUrl = 'http://localhost:5000';
+let url = location.href;
+const baseUrl = url.slice(0, url.indexOf('com/')+4);
+// const baseUrl = 'http://localhost:5000';
 export default baseUrl;
 
 import navbar_$func from '../components/navbar.js';

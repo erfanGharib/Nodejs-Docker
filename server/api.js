@@ -28,98 +28,96 @@ const createAPI = (app, directories) => {
     });
 
     app.get('/api/users/:id', (req, res) => {
-        console.log('get 1');
-        // MongoClient.connect(dbUrl, (err, db) => {
-        //     if (err) throw err;
+        MongoClient.connect(dbUrl, (err, db) => {
+            if (err) throw err;
 
-        //     db.db(databaseName).collection('users')
-        //         .find({}).toArray((err, result) => {
-        //             if (err) throw err;
+            db.db(databaseName).collection('users')
+                .find({}).toArray((err, result) => {
+                    if (err) throw err;
 
-        //             let userExist=false;
+                    let userExist=false;
 
-        //             result.forEach(value => {
-        //                 userExist=false;
-        //                 if(value._id.toHexString() === req.params.id) {
-        //                     userExist = true;
-        //                     return res.send(value.email)
-        //                 };
-        //             });
-        //             if(!userExist) return res.status(404);
-        //         });
-        // });
+                    result.forEach(value => {
+                        userExist=false;
+                        if(value._id.toHexString() === req.params.id) {
+                            userExist = true;
+                            return res.send(value.email)
+                        };
+                    });
+                    if(!userExist) return res.status(404);
+                });
+        });
     });
 
     app.post('/api/users/sign-up', (req, res) => {
         const error = validateUser(req.body);
-        // send sign in error 
+        // send sign in error
         for (let i=0; i < 2; i++) {
             if (error[i].error !== undefined)
-                return res.send(errorMessages.up[i]);
+                return res.send(errorMessages.sign_up[i]);
         }
-        console.log('post 2');
 
-        // MongoClient.connect(dbUrl, (err, db) => {
-        //     if (err) throw err;
+        MongoClient.connect(dbUrl, (err, db) => {
+            if (err) throw err;
 
-        //     let userExist = false;
-        //     const dName = db.db(databaseName);
+            let userExist = false;
+            const dName = db.db(databaseName);
 
-        //     dName.collection('users').find({}).toArray((err, result) => {
-        //         if (err) throw err;
+            dName.collection('users').find({}).toArray((err, result) => {
+                if (err) throw err;
 
-        //         result.forEach(user => {
-        //             if (user.email === req.body.email) {
-        //                 res.send(errorMessages.sign_up[2]);
-        //                 return userExist = true;
-        //             }
-        //         });
+                result.forEach(user => {
+                    if (user.email === req.body.email) {
+                        res.send(errorMessages.sign_up[2]);
+                        return userExist = true;
+                    }
+                });
 
-        //         if (!userExist) {
-        //             dName.collection('users').insertOne(req.body, (err, result_) => {
-        //                 if (err) throw err;
+                if (!userExist) {
+                    dName.collection('users').insertOne(req.body, (err, result_) => {
+                        if (err) throw err;
 
-        //                 res.cookie('userId',result_.insertedId.toHexString())
-        //                 .send(errorMessages.noError);
-        //             });
-        //         }
-        //     });
-        // });
+                        res.cookie('userId',result_.insertedId.toHexString())
+                        .send(errorMessages.noError);
+                    });
+                }
+            });
+        });
     });
 
     app.post('/api/users/log-in', (req, res) => {
-        console.log('post 3');
+        console.log(req.body);
 
-        // MongoClient.connect(dbUrl, (err, db) => {
-        //     if (err) throw err;
+        MongoClient.connect(dbUrl, (err, db) => {
+            if (err) throw err;
 
-        //     const dName = db.db(databaseName);
-        //     let runOnce = false;
+            const dName = db.db(databaseName);
+            let runOnce = false;
 
-        //     dName.collection('users').find({}).toArray((err, result) => {
-        //         if (err) throw err;
-                
-        //         if(result[0] === undefined) return res.send(errorMessages.log_in[0]);
+            dName.collection('users').find({}).toArray((err, result) => {
+                if (err) throw err;
+          
+                if(result[0] === undefined) return res.send(errorMessages.log_in[0]);
 
-        //         return result.forEach(user => {
-        //             if (!runOnce && user.email !== req.body.email) {
-        //                 runOnce = true;
-        //                 return res.status(404).send(errorMessages.log_in[0]);
-        //             }
-                    
-        //             else if (!runOnce && user.password !== req.body.password) {
-        //                 runOnce = true;
-        //                 return res.status(404).send(errorMessages.log_in[1]);
-        //             }
-                    
-        //             else if(!runOnce) {
-        //                 runOnce = true;
-        //                 return res.cookie('userId', user._id.toString())
-        //                 .send(errorMessages.noError);
-        //             };
-        //         });
-        //     });
-        // });
+                return result.forEach(user => {
+                    if (!runOnce && user.email !== req.body.email) {
+                        runOnce = true;
+                        return res.status(404).send(errorMessages.log_in[0]);
+                    }
+              
+                    else if (!runOnce && user.password !== req.body.password) {
+                        runOnce = true;
+                        return res.status(404).send(errorMessages.log_in[1]);
+                    }
+              
+                    else if(!runOnce) {
+                        runOnce = true;
+                        return res.cookie('userId', user._id.toString())
+                        .send(errorMessages.noError);
+                    };
+                });
+            });
+        });
     });
 
     app.delete('/api/users/:id', (req, res) => {

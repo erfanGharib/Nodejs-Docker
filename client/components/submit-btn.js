@@ -5,11 +5,14 @@ const submitBtn =(submitBtn_$dom, type)=> {
     submitBtn_$dom.addEventListener('click', () => {
         const input_$dom = document.querySelectorAll('input');
         const err_$dom = document.querySelectorAll('.err');
-
+        console.log(JSON.stringify({
+            email: input_$dom[0].value,
+            password: input_$dom[1].value,
+        }));
         fetch(
             `${baseUrl}/api/users/${type}`,
             {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
