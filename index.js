@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const databaseName = 'fullstack-practise';
-const dbUrl = 'mongodb://localhost:27017/';
+const dbUrl = 'mongodb://127.0.0.1:27017/';
 const bodyParser = require('body-parser');
 const routes_$arr = [
     '/about-us',
@@ -27,7 +27,7 @@ const startApp = async () => {
       .use(express.json())
       .listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
-    await routes_$arr.forEach((value, index) => {
+    await routes_$arr.forEach((value) => {
         app.get(value, (req, res) => {
             res.sendFile(__dirname + '/client/index.html');
         });
