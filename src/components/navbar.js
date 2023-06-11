@@ -27,7 +27,7 @@ const navbar_$func = async (user_status = false) => {
         const useUrl = btn.link === '' ? '' : baseUrl + btn.link;
         pages_link += (`
             <span class="nav-links">
-                <a href="${useUrl}">${btn.text}</a>
+                <a href="${btn.link}">${btn.text}</a>
             </span>
         `);
     });

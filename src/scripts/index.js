@@ -1,6 +1,6 @@
 let url = location.href;
-const baseUrl = url.slice(0, url.indexOf('com')+3);
-// const baseUrl = 'http://localhost:5000';
+// const baseUrl = url.slice(0, url.indexOf('com')+3);
+const baseUrl = 'http://localhost:5000';
 export default baseUrl;
 
 import navbar_$func from '../components/navbar.js';
@@ -28,6 +28,7 @@ let userExist = false;
 export { userId };
 
 (async () => {
+    console.log(0);
     if(cookie !== '') {
         await fetch(`${baseUrl}/api/users/${userId}`)
         .then(res => {
@@ -35,7 +36,7 @@ export { userId };
             else return userExist = false;
         });
     }
-    
+    console.log(1);
     await navbar_$func(userExist);
 
     await pages_$html.forEach(value => {
@@ -49,12 +50,14 @@ export { userId };
             location.href = '/403';
         }
         else if (`${baseUrl}${value.url}` === window.location.href) {
+            console.log(22);
             createElement({
                 tagName: 'main',
                 inner: value.pageContent
             });
         }
     });
+    console.log(2);
 
     await createElement({
         tagName: 'footer',
@@ -71,4 +74,5 @@ export { userId };
         await showPass();
         await submitBtn(submitBtn_$dom, isSignupPage);
     }
+    console.log(3);
 })();
