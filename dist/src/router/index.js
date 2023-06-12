@@ -1,18 +1,16 @@
+"use strict";
 // const MongoClient = require('mongodb').MongoClient;
 // const { dbUrl, databaseName } = require('../index.js');
 // const Joi = require('joi');
-
-import { routesData } from "../data/routesData";
-
-const express = require('express');
-const router = express.Router();
-
-routesData.forEach(({ route, handler }) => {
+Object.defineProperty(exports, "__esModule", { value: true });
+var routesData_1 = require("../data/routesData");
+var express = require('express');
+var router = express.Router();
+routesData_1.routesData.forEach(function (_a) {
+    var route = _a.route, handler = _a.handler;
     router.get(route, handler);
-})
-
-export default router;
-
+});
+exports.default = router;
 // const errorMessages = {
 //     sign_up: [
 //         { id: 0, err: 'Email must be valid' },
@@ -25,29 +23,23 @@ export default router;
 //     ],
 //     noError: { id: 3, err: 'no error' }
 // }
-
 // const validateUser = (user) => {
 //     const schemaEmail = Joi.string().required().email();
 //     const schemaPass = Joi.string().required().min(5);
 //     return [schemaEmail.validate(user.email), schemaPass.validate(user.password)];
 // };
-
 // const createAPI = (app, directories) => {
 //     app.get('/403', (req, res) => {
 //         res.status(403)
 //         .sendFile(`${directories}/client/pages/403-page.html`);
 //     });
-
 //     app.get('/api/users/:id', (req, res) => {
 //         MongoClient.connect(dbUrl, (err, db) => {
 //             if (err) throw err;
-
 //             db.db(databaseName).collection('users')
 //                 .find({}).toArray((err, result) => {
 //                     if (err) throw err;
-
 //                     let userExist=false;
-
 //                     result.forEach(value => {
 //                         userExist=false;
 //                         if(value._id.toHexString() === req.params.id) {
@@ -59,7 +51,6 @@ export default router;
 //                 });
 //         });
 //     });
-
 //     app.post('/api/users/sign-up', (req, res) => {
 //         const error = validateUser(req.body);
 //         // send sign in error
@@ -67,27 +58,21 @@ export default router;
 //             if (error[i].error !== undefined)
 //                 return res.send(errorMessages.sign_up[i]);
 //         }
-
 //         MongoClient.connect(dbUrl, (err, db) => {
 //             if (err) throw err;
-
 //             let userExist = false;
 //             const dName = db.db(databaseName);
-
 //             dName.collection('users').find({}).toArray((err, result) => {
 //                 if (err) throw err;
-
 //                 result.forEach(user => {
 //                     if (user.email === req.body.email) {
 //                         res.send(errorMessages.sign_up[2]);
 //                         return userExist = true;
 //                     }
 //                 });
-
 //                 if (!userExist) {
 //                     dName.collection('users').insertOne(req.body, (err, result_) => {
 //                         if (err) throw err;
-
 //                         res.cookie('userId',result_.insertedId.toHexString())
 //                         .send(errorMessages.noError);
 //                     });
@@ -95,32 +80,24 @@ export default router;
 //             });
 //         });
 //     });
-
 //     app.post('/api/users/log-in', (req, res) => {
 //         console.log(req.body);
-
 //         MongoClient.connect(dbUrl, (err, db) => {
 //             if (err) throw err;
-
 //             const dName = db.db(databaseName);
 //             let runOnce = false;
-
 //             dName.collection('users').find({}).toArray((err, result) => {
 //                 if (err) throw err;
-          
 //                 if(result[0] === undefined) return res.send(errorMessages.log_in[0]);
-
 //                 return result.forEach(user => {
 //                     if (!runOnce && user.email !== req.body.email) {
 //                         runOnce = true;
 //                         return res.status(404).send(errorMessages.log_in[0]);
 //                     }
-              
 //                     else if (!runOnce && user.password !== req.body.password) {
 //                         runOnce = true;
 //                         return res.status(404).send(errorMessages.log_in[1]);
 //                     }
-              
 //                     else if(!runOnce) {
 //                         runOnce = true;
 //                         return res.cookie('userId', user._id.toString())
@@ -130,11 +107,9 @@ export default router;
 //             });
 //         });
 //     });
-
 //     app.delete('/api/users/:id', (req, res) => {
 //         MongoClient.connect(dbUrl, (err, db) => {
 //             if (err) throw err;
-
 //             const dName = db.db(databaseName);
 //             dName.collection('users').find({}).toArray((err, result)=> {
 //                 result.forEach(value => {
@@ -148,5 +123,5 @@ export default router;
 //         });
 //     });
 // };
-
 // module.exports = { createAPI };
+//# sourceMappingURL=index.js.map

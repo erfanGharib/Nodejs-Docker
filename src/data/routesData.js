@@ -1,1 +1,0 @@
-export const routesData = {'403': '/403','about-us': '/about-us','contact-us': '/contact-us','index': '/index','log-in': '/log-in','sign-up': '/sign-up'};

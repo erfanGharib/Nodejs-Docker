@@ -1,143 +1,26 @@
-* {
-    padding: 0;
-    margin: 0;
-    font-family: calibri, arial;
-    text-decoration: none;
-    color: rgb(0, 36, 77);
-}
-button {
-    border: 0;
-    background: none;
-    font-size: medium;
-}
-.jcb {
-    justify-content: space-between;
-}
-.jcc {
-    justify-content: center;
-}
-.jce {
-    justify-content: space-evenly;
-}
-.ic {
-    align-items: center;
-}
-.flex {
-    display: flex !important;
-}
-.w-full {
-    width: 100%;
-}
-.h-full {
-    height: 100%;
-}
-.col {
-    flex-direction: column;
-}
-.hidden {
-    display: none;
-}
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
 
+.link {
+    @apply hover:underline text-blue-500;
+}
 body {
-    height: 100vh;
-    flex-direction: column;
-}
-main {
-    width: 50%;
-}
-nav {
-    height: 50px;
-    background: rgb(0, 36, 77);
-}
-.nav-links {
-    margin: 0 15px;
-}
-footer {
-    height: 40px;
-    width: 100%;
-    border-top: 1px solid #d6d6d6;
-    color: #00244d9f;
-    padding: 5px 0;
-    font-size: small;
-}
-span, p {
-    color: inherit;
+    background-image: url(../images/5570863.jpg);
+    @apply bg-cover;
 }
 h1 {
-    margin-bottom: 5px;
+    @apply text-xl font-bold;
 }
-p {
-    opacity: .5;
+.btn {
+    @apply p-2 bg-blue-700 text-white hover:bg-blue-800 active:bg-blue-950 transition-colors;
 }
-#form {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    width: 300px;
+input {
+    @apply border p-2 w-full;
 }
-#email, #pass, #submit-btn {
-    margin-top: 7px;
-    padding: 7px;
-    min-height: 20px;
-    border: 1px solid #e2e2e2;
-}
-#submit-btn {
-    margin-top: 14px;
-}
-#submit-btn:hover {
-    background: #e2e2e2;
-}
-#submit-btn:active {
-    background: #cccccc;
-    border-color: #cccccc;
-}
-input::-ms-reveal,
-input::-ms-clear {
-    display: none;
+input:focus {
+    @apply outline-dotted outline-blue-500;
 }
 .err {
-    color: red;
-    margin-top: 4px;
-    font-size: small;
-}
-a {
-    color: #4aa5ff;
-}
-a:hover {
-    text-decoration: underline;
-}
-#show-pass {
-    font-size: small;
-    margin-top: 7px;
-    position: absolute;
-    right: 7px;
-    cursor: pointer;
-}
-label {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-#navbar-dropdown {
-    cursor: default;
-    position: absolute;
-    top: 40px;
-    background: #fff;
-    border-radius: 5px;
-    border: 1px solid #b4b4b4;
-    box-shadow: 0 2px 5px #3a3a3a55;
-    padding: 5px;
-    width: 118px;
-    height: 51px;
-}
-.account {
-    border-radius: 4px;
-    width: 100%;
-    padding: 3px 7px;
-    text-align: left;
-}
-.account:hover {
-    background: #e4e4e4;
+    @apply text-red-600 text-sm pb-[2px];
 }
