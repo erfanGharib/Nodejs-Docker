@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+.link {
+    @apply hover:underline text-blue-500;
+}
+body {
+    background-image: url(../images/5570863.jpg);
+    background-size: 100%;
+    background-position: center;
+    /* @apply bg-cover bg-center; */
+}
+h1 {
+    @apply text-xl font-bold;
+}
+.btn {
+    @apply p-2 bg-blue-700 text-white hover:bg-blue-800 active:bg-blue-950 transition-colors;
+}
+input, textarea {
+    @apply border p-2 w-full focus:outline-dotted focus:outline-blue-500;
+}
+.err {
+    @apply text-sm pb-[2px];
+}
+:disabled {
+    @apply pointer-events-none opacity-50 cursor-not-allowed;
+}
+.visible-dropDown {
+    @apply !translate-y-14 !opacity-100 !visible;
+}

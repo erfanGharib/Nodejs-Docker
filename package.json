@@ -3,16 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "all": "concurrently --kill-others \"tsc -w\" \"npm start\" \"npm run b:css\"",
     "start": "node dist/index.js",
-    "b:css": "tailwindcss -i src/assets/styles/index.css -o src/assets/styles/tailwind.css -w --minify",
+    "build": "tsc && node scripts/build.js",
+    "dev": "nodemon",
     "addRoutes": "node src/scripts/addRoutes.js",
-    "build": "npm-run-all clean tsc tsc-alias"
+    "b:css": "tailwindcss -i src/client/assets/styles/index.css -o src/client/assets/styles/tailwind.css --minify"
   },
   "author": "erfan-gharib",
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.17.17",
+    "axios": "^1.4.0",
     "cool-ascii-faces": "^1.3.4",
     "dotenv": "^16.1.4",
     "express": "^4.17.3",
@@ -21,10 +22,12 @@
     "joi": "^17.6.0",
     "module-alias": "^2.2.3",
     "mongodb": "^4.4.1",
+    "nodemailer": "^6.9.3",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.1.3"
   },
   "devDependencies": {
+    "fs-extra": "^11.1.1",
     "tsc-alias": "^1.8.6"
   }
 }

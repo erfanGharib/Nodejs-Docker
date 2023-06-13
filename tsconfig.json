@@ -1,12 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
+    "target": "ES5",
+    "module": "CommonJS",
     "outDir": "dist",
-    "strict": true,
+    "strict": false,
+    "allowJs": true,
+    "checkJs": true,
     "sourceMap": true
   },
+  "include": [
+    "src/server",
+    "index.ts"
+  ],
   "exclude": [
-    "node_modules"
-  ]
+    "node_modules",
+    "dist",
+    "scripts",
+    "src/utils",
+    "tailwind.config.js"
+  ],
 }
