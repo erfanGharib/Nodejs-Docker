@@ -9,14 +9,14 @@
     "sourceMap": true
   },
   "include": [
-    "src/server",
-    "index.ts"
+    "src"
   ],
   "exclude": [
+    "src/types",
     "node_modules",
     "dist",
     "scripts",
-    "src/utils",
+    "src/public",
     "tailwind.config.js"
   ],
 }
