@@ -20,11 +20,14 @@ export const mailer = (
         text
     };
 
-    return new Promise((resolve: any) => {
-        transporter.mailer(mailOption, (err, info) => {
-            if (err) return console.log(err);
+    return new Promise((resolve: any, reject: any) => {
+        transporter.sendMail(mailOption, (err, info) => {
+            if (err) {
+                console.error(err);
+                return reject();
+            }
             console.log("Message sent: %s", info.response);
-            resolve()
+            resolve();
         });
     })
 }

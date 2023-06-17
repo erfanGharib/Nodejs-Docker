@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "ES2022",
         "rootDir": ".",
-        "outDir": "../../../dist/client/utils",
+        "outDir": "../../../dist/public/utils",
         "allowJs": true
     },
     "include": [

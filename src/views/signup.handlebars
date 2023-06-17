@@ -2,8 +2,7 @@
 
 <script type="module">
     import { sendForm } from './utils/sendForm.js';
-    console.log('runned')
     document.querySelector('form').addEventListener('submit', e => {
-        sendForm(e, '/signup')
+        sendForm(e, '/signup/createUser')
     });
 </script>

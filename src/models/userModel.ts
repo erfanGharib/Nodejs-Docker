@@ -1,6 +1,6 @@
 import Joi = require("joi");
 
-export const authSchema = Joi.object({
+export const userModel = Joi.object({
     password: Joi
         .string()
         .min(8)

@@ -17,7 +17,7 @@ export const sendForm = (e: MouseEvent, url: string) => {
     const disableSubmitBtn = () => {
         document.querySelector('button#submitBtn').setAttribute(
             'disabled',
-            String(Boolean(!err))
+            String(Boolean(err))
         )
     }
 
@@ -58,30 +58,25 @@ export const sendForm = (e: MouseEvent, url: string) => {
     if (IS_DATA_VALID) {
         fetch(url, {
             method: 'post',
-            body: JSON.stringify({ data }),
+            body: JSON.stringify({ ...data }),
             headers: {
                 Accept: "application/json, text/plain",
                 "Content-Type": "application/json;charset=UTF-8"
             }
         })
-            ?.then((res: Response) => res.json())
-            ?.then((data) => {
-                console.log(data);
-                
+            ?.then(async (res: Response) => {
                 err = {
-                    err: !data.ok,
-                    msg: data.message
+                    err: !res.ok,
+                    msg: await res.text()
                 };
 
-                data.ok &&
-                setTimeout(() => {
-                    err = initErr;
-                    window.location.reload();
-                }, 4000)
-            })
-            ?.catch((res) => {
-                err = res.response?.data?.message ?? res.response?.statusText;
-                disableSubmitBtn();
+                if(!err.err) {
+                    disableSubmitBtn();
+                    setTimeout(() => {
+                        err = initErr;
+                        window.location.replace('/');
+                    }, 2000)
+                }
             })
             ?.finally(() => {
                 const errElement = document.querySelector('.err');
@@ -91,7 +86,5 @@ export const sendForm = (e: MouseEvent, url: string) => {
                     `color: ${err.err ? 'rgb(220 38 38)' : 'rgb(22 163 74)'}`
                 )
             })
-
-            disableSubmitBtn();
     }
 }

@@ -1,10 +1,9 @@
 import { Request, Response } from "express";
-import { MongoClient } from "mongodb";
-import { T_ManageDBDocObj } from '../types/T_ManageDBDocObj';
+import { InsertOneResult, MongoClient } from "mongodb";
 require('dotenv').config();
 
 type T_DbQuery = {
-    [key: string]: string
+    [key: string]: any
 }
 type T_Data = {
     schema: any,
@@ -25,23 +24,21 @@ class ManageDBDoc {
         req,
         res,
         dbCollection,
-        // dbQueries = {
-        //     find: undefined,
-        // },
     }: types) {
         this.req = req;
         this.res = res;
-        // this.dbQueries = dbQueries;
         this.dbCollection = dbCollection;
     }
     private dbo = null;
     private db = null;
 
     private setCookie(name: string, data: any) {
+        const date = new Date();
+        date.setDate(date.getDate() + 2);
+
         this.res.cookie(name, data, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'strict',
+            expires: date,
             maxAge: 48 /* hour */ * 60 /* minute */ * 60 /* second */
         })
     }
@@ -60,26 +57,26 @@ class ManageDBDoc {
         const { error, value } = data.schema.validate(data.fields);
         const user = await this.findOne({ email: value.email });
 
-        if (error) {
-            this.res.status(417).send(error);
-            console.error(new Error(error));
-        }
-        else if (Object.entries(user).length === 0) {
-            this.dbo.insertOne(data, (err, result) => {
-                if (err) return console.error(new Error(err));
-                this.setCookie('User', result._id)
-                this.res.send({
-                    ok: true,
-                    message: 'User Already Exist!'
-                })
-            });
-        }
-        else {
-            this.res.status(409).send({
-                ok: false,
-                message: 'User Already Exist!'
-            })
-        }
+        return new Promise((resolve: any) => {
+            if (error) {
+                this.res.status(417).send(error.message);
+                console.error(new Error(error));
+                resolve();
+            }
+            else if (Object.entries(user ?? {}).length === 0) {
+                this.dbo.insertOne(data.fields, (err, result: InsertOneResult) => {
+                    if (err) return console.error(new Error(err));
+                    
+                    this.setCookie('User', String(result.insertedId))
+                    this.res.send('Signed In Successfuly!')
+                    resolve()
+                });
+            }
+            else {
+                this.res.status(409).send('User Already Exist With this Email!')
+                resolve()
+            }
+        })
     }
 
     public async connectToDatabase() {
@@ -93,9 +90,10 @@ class ManageDBDoc {
                 // if (!this.data) {
                 //     throw new Error('No Data Received');
                 // }
+                
                 resolve();
             });
-        });
+        })
         return this;
     }
     public closeConnection() {

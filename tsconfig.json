@@ -8,9 +8,6 @@
     "checkJs": true,
     "sourceMap": true
   },
-  "include": [
-    "src"
-  ],
   "exclude": [
     "src/types",
     "node_modules",

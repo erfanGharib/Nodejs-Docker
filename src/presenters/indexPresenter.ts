@@ -4,7 +4,7 @@ const path = require('path');
 
 module.exports = {
     get: (req: Request, res: Response) => {
-        res.render('home', {
+        res.render('index', {
             title: 'Home',
         });
     }

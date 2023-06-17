@@ -1,8 +1,9 @@
+import { ObjectId } from "mongodb";
 import { __views } from "..";
 import ManageDBDoc from "../utils/ManageDBDoc";
 const path = require('path');
 const fs = require('fs');
-const allRoutes = fs.readdirSync(path.join(__dirname, '..', 'routes'))
+const allRoutes = fs.readdirSync(path.join(__dirname, '..', 'views'))
 const Handlebars = require("handlebars");
 
 const checkUserStatus = async (req, res, next) => {
@@ -12,43 +13,36 @@ const checkUserStatus = async (req, res, next) => {
         dbCollection: 'users'
     }).connectToDatabase();
 
-    if (JSON.parse(JSON.stringify(req.cookies)).hasOwnProperty('User')) {
-        if (
-            req.cookies.User &&
-            req.cookies.User.httpOnly &&
-            await dbConnection.findOne({ _id: req.cookies.User })
-        ) {
-            dbConnection.closeConnection();
-            res.render(path.join(__views, '403.handlebars'), {
-                title: '403 | Forbbiden'
-            });
-            res.locals.signedIn = true;
-            return;
-        }
+    if ((req.cookies.User ?? null) && await dbConnection.findOne({ _id: new ObjectId(req.cookies.User) })) {
+        dbConnection.closeConnection();
+        res.locals.signedIn = true;
     }
-    res.locals.signedIn = false;
+    else res.locals.signedIn = false;
 
-    /** pass all navbar links to handlebars layout based on @routesData */
+    /** pass all navbar links to handlebars layout based on @routes */
     Handlebars.registerHelper('navbarLinks', ({ data }: { data: any }) => {
         let result = '';
-        allRoutes
-        .filter(v => !v.match(/map$/i))
-        .forEach((route) => {
-            const unexpectedRoutes = [
-                'forbidden', 'notFound', 'index'
-            ]
-            if (unexpectedRoutes.some(route_ => route.includes(route_))) return;
+        const unexpectedRoutes = [
+            '403', '404', 'index'
+        ];
 
-            const resultCpy = route.replace('.js', '');
-            result += `
-            <a 
-                href='/${resultCpy}' 
-                class="${data?.root?.title?.toLowerCase().includes(resultCpy) && 'bg-blue-700'} capitalize md:ml-3 mb-3 md:mb-0 !bg-opacity-40 !border-opacity-60 border border-blue-600 hover:bg-blue-700 text-blue-100 py-2 px-3 text-sm transition-all"
-            >
-                ${resultCpy}
-            </a>
-        `
-        })
+        allRoutes
+            .filter(v => (
+                !unexpectedRoutes.some(route_ => v.includes(route_)) &&
+                !res.locals.signedIn &&
+                v.match(/\.\w+$/)
+            ))
+            .forEach((route) => {
+                const resultCpy = route.replace(/\.\w+$/, '');
+                result += (`
+                    <a 
+                        href='/${resultCpy}' 
+                        class="${data?.root?.title?.toLowerCase().includes(resultCpy) && 'bg-blue-700'} capitalize md:ml-3 mb-3 md:mb-0 !bg-opacity-40 !border-opacity-60 border border-blue-600 hover:bg-blue-700 text-blue-100 py-2 px-3 text-sm transition-all"
+                    >
+                        ${resultCpy}
+                    </a>
+                `)
+            })
         return result;
     })
 
