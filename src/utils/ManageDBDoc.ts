@@ -32,6 +32,13 @@ class ManageDBDoc {
     private dbo = null;
     private db = null;
 
+    private throwErr(error: Error, cb: () => void) {
+        if (error) {
+            this.res.status(417).send(error.message);
+            console.error(new Error(error.message));
+            return cb();
+        }
+    }
     private setCookie(name: string, data: any) {
         const date = new Date();
         date.setDate(date.getDate() + 2);
@@ -42,33 +49,46 @@ class ManageDBDoc {
             maxAge: 48 /* hour */ * 60 /* minute */ * 60 /* second */
         })
     }
-    public async findOne(query: T_DbQuery) {
+    public async findOne(query: T_DbQuery, sendResponse: boolean) {
+        const data = (
+            query?.schema?.validate(query?.fields) ??
+            { error: null, value: query }
+        );
         let resultCpy = {};
+
         await new Promise((resolve: any) => {
-            this.dbo.findOne(query, (err, result) => {
+            this.throwErr(data?.error, resolve)
+
+            this.dbo.findOne(data?.value, (err, result) => {
                 if (err) console.error(new Error(err));
-                resultCpy = result;
-                resolve();
+                else if (Object.entries(result ?? {}).length !== 0) {
+                    resultCpy = result;
+                    sendResponse && this.setCookie('User', String(result?._id))
+                    sendResponse && this.res.send('Signed In Successfuly')
+                    resolve();
+                }
+                else {
+                    sendResponse && this.res.status(417).send('Invalid Email or Password')
+                    resolve()
+                }
             });
         })
+
         return resultCpy;
     }
     public async insertOne(data: T_Data) {
         const { error, value } = data.schema.validate(data.fields);
-        const user = await this.findOne({ email: value.email });
+        const user = await this.findOne({ email: value.email }, true);
 
         return new Promise((resolve: any) => {
-            if (error) {
-                this.res.status(417).send(error.message);
-                console.error(new Error(error));
-                resolve();
-            }
-            else if (Object.entries(user ?? {}).length === 0) {
+            this.throwErr(error, resolve)
+
+            if (Object.entries(user ?? {}).length === 0) {
                 this.dbo.insertOne(data.fields, (err, result: InsertOneResult) => {
                     if (err) return console.error(new Error(err));
-                    
+
                     this.setCookie('User', String(result.insertedId))
-                    this.res.send('Signed In Successfuly!')
+                    this.res.send('Signed Up Successfuly!')
                     resolve()
                 });
             }
@@ -90,7 +110,7 @@ class ManageDBDoc {
                 // if (!this.data) {
                 //     throw new Error('No Data Received');
                 // }
-                
+
                 resolve();
             });
         })

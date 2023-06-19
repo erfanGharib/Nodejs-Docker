@@ -13,7 +13,13 @@ const checkUserStatus = async (req, res, next) => {
         dbCollection: 'users'
     }).connectToDatabase();
 
-    if ((req.cookies.User ?? null) && await dbConnection.findOne({ _id: new ObjectId(req.cookies.User) })) {
+    if (
+        (req.cookies.User ?? null) && 
+        await dbConnection.findOne(
+            { _id: new ObjectId(req.cookies.User) },
+            false
+        )
+    ) {
         dbConnection.closeConnection();
         res.locals.signedIn = true;
     }

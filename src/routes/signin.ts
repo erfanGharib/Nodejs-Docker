@@ -4,6 +4,6 @@ const signinRouter = express.Router();
 const signinPresenter = require('../presenters/signinPresenter');
 
 signinRouter.get('/', signinPresenter.get);
-// signinRouter.post('/createUser', signinPresenter.createUser);
+signinRouter.post('/getUser', signinPresenter.getUser);
 
 export default signinRouter;

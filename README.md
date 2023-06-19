@@ -1,3 +1,5 @@
+![Nodejs-Docker Preview](./preview.PNG)
+<!-- <img src="./src/public/assets/logo.svg" alt="Nodejs-Docker logo" style="margin: 0 auto; width:150px;"> -->
 # Nodejs Docker
 - Full responsive Website
 - Sample Nodejs Project 
@@ -12,12 +14,12 @@
 ## Pages
 - Home
 - AboutUs
-- ContactUS
+- ContactUs
 - SignIn
 - SignUp
 
 ## Options
-- User can send message to website admin by contactUs form
+- User can send message to website admin via contactUs form
 - Create an account
 - Sign in to existing account
 - Logout
