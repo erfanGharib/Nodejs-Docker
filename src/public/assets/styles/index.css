@@ -29,3 +29,10 @@ input, textarea {
 .visible-dropDown {
     @apply !translate-y-14 !opacity-100 !visible;
 }
+.ico {
+    @apply w-5 h-5 block;
+}
+.ico-user {
+    @apply bg-cover;
+    background-image: url('../icons/user.svg');
+}

@@ -7,6 +7,7 @@ import forbiddenRouter from './routes/forbidden.js';
 import indexRouter from './routes/index.js';
 import notFoundRouter from './routes/notFound.js';
 import signinRouter from './routes/signin.js';
+import signoutRouter from './routes/signout.js';
 import signupRouter from './routes/signup.js';
 
 const express = require('express');
@@ -34,6 +35,7 @@ app
     .use('/403', forbiddenRouter)
     .use('/signin', signinRouter)
     .use('/signup', signupRouter)
+    .use('/signout', signoutRouter)
     .use('/', notFoundRouter)
 
     .engine('handlebars', engine({

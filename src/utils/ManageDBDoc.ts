@@ -14,6 +14,7 @@ type types = {
     res: Response,
     dbCollection: 'users',
 }
+export type T_User = { email: string; password: string; _id: any; };
 
 class ManageDBDoc {
     req: Request;
@@ -39,7 +40,7 @@ class ManageDBDoc {
             return cb();
         }
     }
-    private setCookie(name: string, data: any) {
+    public setCookie(name: string, data: any) {
         const date = new Date();
         date.setDate(date.getDate() + 2);
 
@@ -49,7 +50,7 @@ class ManageDBDoc {
             maxAge: 48 /* hour */ * 60 /* minute */ * 60 /* second */
         })
     }
-    public async findOne(query: T_DbQuery, sendResponse: boolean) {
+    public async findOne(query: T_DbQuery, sendResponse: boolean): Promise<T_User | {}> {
         const data = (
             query?.schema?.validate(query?.fields) ??
             { error: null, value: query }
@@ -78,7 +79,7 @@ class ManageDBDoc {
     }
     public async insertOne(data: T_Data) {
         const { error, value } = data.schema.validate(data.fields);
-        const user = await this.findOne({ email: value.email }, true);
+        const user = await this.findOne({ email: value.email }, false);
 
         return new Promise((resolve: any) => {
             this.throwErr(error, resolve)
