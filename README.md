@@ -1,8 +1,4 @@
-<!-- ![Nodejs-Docker Preview](./src/public/assets/preview.mp4) -->
-<video controls poster="./src/public/assets/preview.png">
-  <source src="./src/public/assets/preview.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+https://github.com/erfanGharib/Nodejs-Docker/assets/79592676/69be448c-b4a4-4207-9a6c-fdeafe03d179
 
 # Nodejs Docker
 - Full responsive
