@@ -108,10 +108,6 @@ class ManageDBDoc {
                 this.db = db;
                 this.dbo = db.db(process.env.DB_NAME).collection(this.dbCollection);
 
-                // if (!this.data) {
-                //     throw new Error('No Data Received');
-                // }
-
                 resolve();
             });
         })

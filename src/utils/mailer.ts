@@ -4,7 +4,7 @@ require('dotenv').config();
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'erfan.gh.work@gmail.com',
+        user: 'erfangharib5@gmail.com',
         pass: process.env.EMAIL_PASS,
     }
 });
@@ -13,9 +13,9 @@ export const mailer = (
     { message: string, fullName: string, email: string }
 ) => {
     const mailOption = {
-        from: 'erfan.gh.work@gmail.com',
-        replyTo: 'erfan.gh.work@gmail.com',
-        to: 'erfan.gh.work@gmail.com',
+        from: 'erfangharib5@gmail.com',
+        replyTo: 'erfangharib5@gmail.com',
+        to: 'erfangharib5@gmail.com',
         subject: `Nodejs-Docker: ${fullName} ${email}`,
         text
     };

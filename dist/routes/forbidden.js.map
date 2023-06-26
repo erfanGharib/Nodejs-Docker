@@ -1,0 +1,1 @@
+{"version":3,"file":"forbidden.js","sourceRoot":"","sources":["../../src/routes/forbidden.ts"],"names":[],"mappings":";;AACA,IAAM,OAAO,GAAG,OAAO,CAAC,SAAS,CAAC,CAAC;AACnC,IAAM,eAAe,GAAG,OAAO,CAAC,MAAM,EAAE,CAAC;AACzC,IAAM,kBAAkB,GAAG,OAAO,CAAC,kCAAkC,CAAC,CAAC;AAEvE,eAAe,CAAC,GAAG,CAAC,GAAG,EAAE,kBAAkB,CAAC,GAAG,CAAC,CAAC;AAEjD,kBAAe,eAAe,CAAC"}

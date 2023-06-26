@@ -38,7 +38,7 @@ const navbarLinks = async (userData: T_User | {}, signedIn: boolean) => {
             result += (`
                 <a 
                     href='/${link}'
-                    class="${data?.root?.title?.toLowerCase().includes(link) && 'bg-blue-700'} capitalize md:ml-3 mb-3 md:mb-0 !bg-opacity-40 !border-opacity-60 border border-blue-600 hover:bg-blue-700 text-blue-100 py-2 px-3 text-sm transition-all"
+                    class="${data?.exphbs?.view?.toLowerCase().includes(link.toLowerCase()) && 'bg-blue-700'} capitalize md:ml-3 mb-3 md:mb-0 !bg-opacity-40 !border-opacity-60 border border-blue-600 hover:bg-blue-700 text-blue-100 py-2 px-3 text-sm transition-all"
                 >
                     ${text ?? link}
                 </a>

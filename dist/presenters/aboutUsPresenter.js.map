@@ -1,0 +1,1 @@
+{"version":3,"file":"aboutUsPresenter.js","sourceRoot":"","sources":["../../src/presenters/aboutUsPresenter.ts"],"names":[],"mappings":";;AAGA,MAAM,CAAC,OAAO,GAAG;IACb,GAAG,EAAE,UAAC,GAAY,EAAE,GAAa;QAC7B,GAAG,CAAC,MAAM,CAAC,SAAS,EAAE;YAClB,KAAK,EAAE,SAAS;SACnB,CAAC,CAAC;IACP,CAAC;CACJ,CAAA"}

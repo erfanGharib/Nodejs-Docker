@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "ES2022",
+        "rootDir": ".",
+        "outDir": "../../../dist/public/utils",
+        "allowJs": true
+    },
+    "include": [
+        "sendForm.ts"
+    ],
+    "exclude": [
+        "types",
+    ]
+}

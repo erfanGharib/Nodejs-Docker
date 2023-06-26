@@ -1,0 +1,1 @@
+{"version":3,"file":"forbiddenPresenter.js","sourceRoot":"","sources":["../../src/presenters/forbiddenPresenter.ts"],"names":[],"mappings":";;AAEA,IAAM,IAAI,GAAG,OAAO,CAAC,MAAM,CAAC,CAAC;AAE7B,MAAM,CAAC,OAAO,GAAG;IACb,GAAG,EAAE,UAAC,GAAY,EAAE,GAAa;QAC7B,GAAG,CAAC,MAAM,CAAC,GAAG,CAAC,CAAC,MAAM,CAAC,KAAK,EAAE;YAC1B,KAAK,EAAE,iBAAiB;SAC3B,CAAC,CAAC;IACP,CAAC;CACJ,CAAA"}

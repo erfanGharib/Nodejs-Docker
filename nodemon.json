@@ -1,6 +1,6 @@
 {
     "watch": ["no-folder"],
     "ext": "*",
-    "exec": "node scripts/build.js && npm run b:css && tsc --p tsconfig.json && tsc --p src/public/utils/tsconfig.json && node dist/index.js",
+    "exec": "npm run b:css && tsc --p tsconfig.json && tsc --p src/public/utils/tsconfig.json && node scripts/build.js && node dist/index.js",
     "ignore": "dist"
 }

@@ -14,10 +14,18 @@ export const sendForm = (e: MouseEvent, url: string) => {
     let err: T_FormErrObj = initErr;
     const data = {};
 
-    const disableSubmitBtn = () => {
-        document.querySelector('button#submitBtn').setAttribute(
+    const disableSubmitBtn = (disabled: boolean) => {
+        document.querySelector('button#submitBtn').toggleAttribute(
             'disabled',
-            String(Boolean(err))
+            disabled
+        )
+    }
+    const displayError = () => {
+        const errElement = document.querySelector('.err');
+        errElement.innerHTML = err.msg;
+        errElement.setAttribute(
+            'style',
+            `color: ${err.err ? 'rgb(220 38 38)' : 'rgb(22 163 74)'}`
         )
     }
 
@@ -35,17 +43,6 @@ export const sendForm = (e: MouseEvent, url: string) => {
                 return undefined;
             })
             .filter(v => v !== undefined)
-            .every(element => {
-                if (element?.required === true) {
-                    return (
-                        element?.value !== null &&
-                        element?.value !== ''
-                    )
-                }
-                else {
-                    return true;
-                }
-            })
     );
 
     // generate error on validation
@@ -53,6 +50,8 @@ export const sendForm = (e: MouseEvent, url: string) => {
         err: !IS_DATA_VALID,
         msg: !IS_DATA_VALID ? 'Please Fill Out the Form' : null
     };
+    displayError();
+    disableSubmitBtn(true);
 
     // post data if no error occurred
     if (IS_DATA_VALID) {
@@ -70,21 +69,14 @@ export const sendForm = (e: MouseEvent, url: string) => {
                     msg: await res.text()
                 };
 
-                if(!err.err) {
-                    disableSubmitBtn();
+                if (!err.err) {
                     setTimeout(() => {
                         err = initErr;
                         window.location.replace('/');
                     }, 2000)
                 }
+                else disableSubmitBtn(false);
             })
-            ?.finally(() => {
-                const errElement = document.querySelector('.err');
-                errElement.innerHTML = err.msg;
-                errElement.setAttribute(
-                    'style',
-                    `color: ${err.err ? 'rgb(220 38 38)' : 'rgb(22 163 74)'}`
-                )
-            })
+            ?.finally(displayError)
     }
 }

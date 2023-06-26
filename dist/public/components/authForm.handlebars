@@ -1,0 +1,35 @@
+<form class="bg-white hover:shadow-[0_20px_30px_#00000017] transition-shadow duration-500 flex flex-col w-72 border p-7 m-auto space-y-1">
+    <h1 class="!pb-3">{{title}}</h1>
+    <input type="email" name="email" required placeholder="Enter your email">
+    {{!-- <span class="err"></span> --}}
+    <label class="flex">
+        <input class="z-10" type="password" name="password" required placeholder="Enter your password">
+        <button 
+            id="changePassword"
+            type="button" 
+            class="border w-[70px] -ml-px p-2 hover:bg-gray-100"
+        >
+            show
+        </button>
+    </label>
+    <span class="err"></span>
+    <button type="submit" class="btn w-full" id="submitBtn">
+        Submit
+    </button>
+
+    <span class="pt-2 text-sm text-gray-400">
+        {{haveAnAccount.text}}
+        <a class="link capitalize" href="/{{haveAnAccount.link}}">{{haveAnAccount.link}}</a>
+    </span>
+</div>
+
+<script>
+    let IS_PASSWORD_TYPE = true;
+    document.querySelector('#changePassword').addEventListener('click', e => {
+        IS_PASSWORD_TYPE = !IS_PASSWORD_TYPE;
+        e?.target?.parentElement?.querySelector('input').setAttribute('type', 
+            IS_PASSWORD_TYPE ? 'password' : 'text'
+        )
+        e.target.innerHTML = IS_PASSWORD_TYPE ? 'show' : 'hide';
+    })
+</script>

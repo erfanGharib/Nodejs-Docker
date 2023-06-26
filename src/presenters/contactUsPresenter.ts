@@ -11,7 +11,7 @@ module.exports = {
     },
     sendMail: (req: Request, res: Response) => {
         const { error, value } = contactUsModel.validate(req.body);
-        if(error) return res.send(error.message);
+        if(error) return res.status(400).send(error.message);
         
         mailer(value)
         .then(() => {

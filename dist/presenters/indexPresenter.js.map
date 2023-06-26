@@ -1,0 +1,1 @@
+{"version":3,"file":"indexPresenter.js","sourceRoot":"","sources":["../../src/presenters/indexPresenter.ts"],"names":[],"mappings":";;AAEA,IAAM,IAAI,GAAG,OAAO,CAAC,MAAM,CAAC,CAAC;AAE7B,MAAM,CAAC,OAAO,GAAG;IACb,GAAG,EAAE,UAAC,GAAY,EAAE,GAAa;QAC7B,GAAG,CAAC,MAAM,CAAC,OAAO,EAAE;YAChB,KAAK,EAAE,MAAM;SAChB,CAAC,CAAC;IACP,CAAC;CACJ,CAAA"}

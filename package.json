@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start": "node dist/index.js",
-    "build": "tsc --p tsconfig.json && tsc --p src/public/utils/tsconfig.json && node dist/index.js && node scripts/build.js",
+    "build": "tsc --p tsconfig.json && tsc --p src/public/utils/tsconfig.json && node scripts/build.js",
     "dev": "nodemon",
     "b:css": "tailwindcss -i src/public/assets/styles/index.css -o src/public/assets/styles/tailwind.css --minify"
   },

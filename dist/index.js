@@ -9,6 +9,7 @@ var forbidden_js_1 = require("./routes/forbidden.js");
 var index_js_1 = require("./routes/index.js");
 var notFound_js_1 = require("./routes/notFound.js");
 var signin_js_1 = require("./routes/signin.js");
+var signout_js_1 = require("./routes/signout.js");
 var signup_js_1 = require("./routes/signup.js");
 var express = require('express');
 var app = express();
@@ -32,6 +33,7 @@ app
     .use('/403', forbidden_js_1.default)
     .use('/signin', signin_js_1.default)
     .use('/signup', signup_js_1.default)
+    .use('/signout', signout_js_1.default)
     .use('/', notFound_js_1.default)
     .engine('handlebars', engine({
     layoutsDir: path.join(exports.__views, "layouts"),

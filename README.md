@@ -1,15 +1,21 @@
-![Nodejs-Docker Preview](./preview.PNG)
-<!-- <img src="./src/public/assets/logo.svg" alt="Nodejs-Docker logo" style="margin: 0 auto; width:150px;"> -->
+<!-- ![Nodejs-Docker Preview](./src/public/assets/preview.mp4) -->
+<video controls poster="./src/public/assets/preview.png">
+  <source src="./src/public/assets/preview.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 # Nodejs Docker
-- Full responsive Website
+- Full responsive
 - Sample Nodejs Project 
-<!-- - Production link: [https://shapo-bay.vercel.app/shop](https://shapo-bay.vercel.app/shop) -->
 
 ## Technologies
 - Nodejs
 - Express
 - Mongodb
 - Docker
+- Tailwindcss
+- Handlebars
+- Typescript
 
 ## Pages
 - Home
@@ -22,7 +28,7 @@
 - User can send message to website admin via contactUs form
 - Create an account
 - Sign in to existing account
-- Logout
+- Sign out
 
 ## Run Project
 ### `npm install`
@@ -36,4 +42,4 @@ Runs the app in the production mode.
 Open [http://localhost:5000](http://localhost:5000) to view it in your browser.
 
 ## Project Status
-inComplete
+Complete
